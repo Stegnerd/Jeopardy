@@ -10,10 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.stegnerd.jeopardy.R
 import com.stegnerd.jeopardy.ui.categoryselect.dummy.DummyContent
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * A fragment representing a list of Items.
  */
+@AndroidEntryPoint
 class CategorySelectFragment : Fragment() {
 
     private var columnCount = 1
