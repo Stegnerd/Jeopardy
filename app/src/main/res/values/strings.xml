@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Jeopardy</string>
+
+    <string name="landing_categories_button">Categories</string>
+    <string name="landing_questions_button">Questions</string>
+
 </resources>
