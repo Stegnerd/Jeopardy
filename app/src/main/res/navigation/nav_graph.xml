@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/landingFragment">
+
+    <fragment
+        android:id="@+id/landingFragment"
+        android:name="com.stegnerd.jeopardy.ui.landing.LandingFragment"
+        android:label="landing_fragment"
+        tools:layout="@layout/landing_fragment" >
+        <action
+            android:id="@+id/action_landingFragment_to_categorySelectFragment"
+            app:destination="@id/categorySelectFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_questionFragment"
+            app:destination="@id/questionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categorySelectFragment"
+        android:name="com.stegnerd.jeopardy.ui.categoryselect.CategorySelectFragment"
+        android:label="category_select_list_fragment"
+        tools:layout="@layout/category_select_list_fragment" />
+    <fragment
+        android:id="@+id/questionFragment"
+        android:name="com.stegnerd.jeopardy.ui.question.QuestionFragment"
+        android:label="question_fragment"
+        tools:layout="@layout/question_fragment" />
+</navigation>
