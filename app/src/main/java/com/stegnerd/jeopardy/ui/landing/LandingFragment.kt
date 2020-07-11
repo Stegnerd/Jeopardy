@@ -10,6 +10,10 @@ import androidx.navigation.fragment.findNavController
 import com.stegnerd.jeopardy.databinding.LandingFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * This is the fragment for the landing page. This is using an instance of view binding not databinding!
+ * Because there is no data there is no need for data binding.
+ */
 @AndroidEntryPoint
 class LandingFragment : Fragment() {
 
