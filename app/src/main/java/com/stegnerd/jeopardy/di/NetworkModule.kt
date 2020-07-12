@@ -12,6 +12,17 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
+
+/**
+ * Di module of dagger-hilt for networking classes
+ *
+ * we use provides annotation because it contains 3rd party libraries that are not ours we must inject them
+ * we use the singleton annotation because we only want to call this once per application start
+ * we use the install in Application component to say that anything in the app can use this module
+ *
+ * We inject an instance of ApiClient in to services because we inject an instance of provideApiClient
+ * which inherits ApiClient
+ */
 @Module
 @InstallIn(ApplicationComponent::class)
 object NetworkModule {
