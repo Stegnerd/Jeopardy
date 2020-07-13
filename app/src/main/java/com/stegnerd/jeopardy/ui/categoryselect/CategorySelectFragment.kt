@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.stegnerd.jeopardy.R
-import com.stegnerd.jeopardy.ui.categoryselect.dummy.DummyContent
+import com.stegnerd.jeopardy.data.model.Category
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -34,6 +34,9 @@ class CategorySelectFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.category_select_list_fragment, container, false)
 
+        val cat = Category(1, "Sample Title", 5)
+        val fakeItems = listOf<Category>(cat)
+
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
@@ -41,7 +44,7 @@ class CategorySelectFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = CategorySelectAdapter(DummyContent.ITEMS)
+                adapter = CategorySelectAdapter(fakeItems)
             }
         }
         return view

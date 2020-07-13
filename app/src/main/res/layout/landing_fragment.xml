@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/teal_200"
-    tools:context=".ui.landing.LandingActivity">
+    tools:context=".ui.landing.LandingFragment">
 
     <TextView
         android:id="@+id/LandingAppTitle"
