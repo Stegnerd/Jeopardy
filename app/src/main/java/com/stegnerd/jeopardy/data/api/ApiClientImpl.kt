@@ -23,8 +23,9 @@ class ApiClientImpl @Inject constructor(private val apiService: ApiService) : Ap
     }
 
     companion object {
+        // this is the current amount of categories minus our offset of 5
         private const val MAX_CATEGORY_ID = 11566
-        private const val CATEGORY_RETRIEVAL_LIMIT = 10
+        private const val CATEGORY_RETRIEVAL_LIMIT = 5
     }
 
     /**

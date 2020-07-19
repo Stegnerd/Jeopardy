@@ -13,8 +13,21 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="@{viewModel.loading ? View.GONE : View.VISIBLE}">
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:visibility="@{viewModel.loading ? View.VISIBLE : View.GONE}"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,6 +45,8 @@
                 tools:context=".ui.categoryselect.CategorySelectFragment"
                 tools:listitem="@layout/category_select_item_fragment" />
         </LinearLayout>
+
+
 
 
     </RelativeLayout>

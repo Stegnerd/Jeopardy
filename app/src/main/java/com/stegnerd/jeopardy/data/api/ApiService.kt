@@ -19,7 +19,7 @@ interface ApiService {
      */
     @GET("categories")
     suspend fun getRandomCategories(
-        @Query("count") count: Int = 10,
+        @Query("count") count: Int = 5,
         @Query("offset") offset: Int = 0
     ): Response<List<Category>>
 
