@@ -60,12 +60,12 @@ class CategorySelectViewModel @ViewModelInject constructor(private val repositor
                         _categories.value = Result.success(it.body())
                     }else {
                         _loading.value = false
-                        _categories.postValue(Result.error(it.errorBody().toString(), null))
+                        _categories.value = Result.error(it.errorBody().toString(), null)
                     }
                 }
             }else {
                 _loading.value = false
-                _categories.postValue(Result.error("No internet connection", null))
+                _categories.value = Result.error("No internet connection", null)
             }
         }
     }
