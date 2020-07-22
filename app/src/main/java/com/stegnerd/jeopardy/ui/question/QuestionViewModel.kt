@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stegnerd.jeopardy.data.local.Repository
+import com.stegnerd.jeopardy.data.model.Category
 import com.stegnerd.jeopardy.data.model.Question
 import com.stegnerd.jeopardy.util.NetworkHelper
 import com.stegnerd.jeopardy.util.Result
@@ -13,14 +14,35 @@ import kotlinx.coroutines.launch
 
 class QuestionViewModel @ViewModelInject constructor(private val repository: Repository, private val networkHelper: NetworkHelper) : ViewModel() {
 
+    /**
+     * This is the id of the [Category] that is passed from navigation.
+     */
     var categoryId: Int = 0
 
+    /**
+     * This is the [Question] that can be updated via [Repository]
+     */
     private val _question = MutableLiveData<Result<Question>>()
+
+    /**
+     * This is the [Question] that can be used in the ui
+     */
     val question: LiveData<Result<Question>> = _question
 
+    /**
+     * Flag to determine if retrieving data is done or not.
+     */
     private val _loading = MutableLiveData<Boolean>()
+
+    /**
+     * Flag to determine if retrieving data. Can be used in the ui.
+     */
     val loading: LiveData<Boolean> = _loading
 
+    /**
+     * Determines if need to grab a question based on a category or not.
+     * Also sets the categoryId from nav args if it is not null
+     */
     fun loadQuestion(catId:Int?){
         if(catId != null){
             categoryId = catId
@@ -30,6 +52,9 @@ class QuestionViewModel @ViewModelInject constructor(private val repository: Rep
         }
     }
 
+    /**
+     * Gets a random [Question] from [Repository] that is not based on a [Category].
+     */
     private fun getRandomQuestion() {
         viewModelScope.launch {
             _loading.value = true
@@ -52,6 +77,9 @@ class QuestionViewModel @ViewModelInject constructor(private val repository: Rep
         }
     }
 
+    /**
+     * Gets a [Question] from [Repository] that is based on specific [Category]
+     */
     private fun getQuestionFromCategory(){
         viewModelScope.launch {
             _loading.value = true
@@ -74,6 +102,12 @@ class QuestionViewModel @ViewModelInject constructor(private val repository: Rep
         }
     }
 
+    /**
+     * Used to grab one item from a list.
+     *
+     * Note: Abstracted now because will ube used to cross reference against if already
+     * answered before.
+     */
     private fun filterQuestion(items: List<Question>): Question{
         val array = items.toTypedArray()
         return array.random()

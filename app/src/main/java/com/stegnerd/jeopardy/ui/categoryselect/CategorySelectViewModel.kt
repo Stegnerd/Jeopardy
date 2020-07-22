@@ -16,22 +16,22 @@ import kotlinx.coroutines.launch
 class CategorySelectViewModel @ViewModelInject constructor(private val repository: Repository, private val networkHelper: NetworkHelper): ViewModel() {
 
     /**
-     * [MutableLiveData] list of [Category] that can up updated via [Repository]
+     * List of [Category] that can up updated via [Repository]
      */
     private val _categories = MutableLiveData<Result<List<Category>>>()
 
     /**
-     * This is the [LiveData] list of [Category]. Can be used in the ui.
+     * This is the list of [Category]. Can be used in the ui.
      */
     val categories: LiveData<Result<List<Category>>> = _categories
 
     /**
-     * [MutableLiveData] flag to determine if retrieving data is done or not.
+     * Flag to determine if retrieving data is done or not.
      */
     private val _loading = MutableLiveData<Boolean>()
 
     /**
-     * [LiveData] fflag to determine if retrieving data. Can be used in the ui.
+     * Flag to determine if retrieving data. Can be used in the ui.
      */
     val loading: LiveData<Boolean> = _loading
 
