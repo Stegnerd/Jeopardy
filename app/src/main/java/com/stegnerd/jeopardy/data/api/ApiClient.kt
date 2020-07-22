@@ -21,6 +21,8 @@ interface ApiClient {
 
     /**
      * Gets a random [Question] from a random [Category]
+     *
+     * This is always a list of one.
      */
-    suspend fun getRandomQuestion(): Response<Question>
+    suspend fun getRandomQuestion(): Response<List<Question>>
 }

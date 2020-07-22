@@ -18,7 +18,7 @@ class ApiClientImpl @Inject constructor(private val apiService: ApiService) : Ap
         return apiService.getQuestionsByCategory(categoryId)
     }
 
-    override suspend fun getRandomQuestion(): Response<Question> {
+    override suspend fun getRandomQuestion(): Response<List<Question>> {
         return apiService.getRandomQuestion()
     }
 

@@ -23,7 +23,7 @@
             android:orientation="vertical">
 
             <ProgressBar
-                android:id="@+id/progressBar2"
+                android:id="@+id/CategorySelectProgressBar"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -45,13 +45,7 @@
                 tools:context=".ui.categoryselect.CategorySelectFragment"
                 tools:listitem="@layout/category_select_item_fragment" />
         </LinearLayout>
-
-
-
-
     </RelativeLayout>
-
-
 </layout>
 
 

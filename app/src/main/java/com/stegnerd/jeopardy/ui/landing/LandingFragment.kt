@@ -50,7 +50,8 @@ class LandingFragment : Fragment() {
             findNavController().navigate(action)
         }
         binding.QuestionButton.setOnClickListener {
-            val action  = LandingFragmentDirections.actionLandingFragmentToQuestionFragment()
+            // Since there was no category selected pass null as the parameter
+            val action  = LandingFragmentDirections.actionLandingFragmentToQuestionFragment(null)
             findNavController().navigate(action)
         }
     }

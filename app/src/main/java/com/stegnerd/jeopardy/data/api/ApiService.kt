@@ -36,7 +36,9 @@ interface ApiService {
 
     /**
      * Gets a random [Question] from a random category.
+     *
+     * This is a list of [Question]
      */
     @GET("random")
-    suspend fun getRandomQuestion(): Response<Question>
+    suspend fun getRandomQuestion(): Response<List<Question>>
 }

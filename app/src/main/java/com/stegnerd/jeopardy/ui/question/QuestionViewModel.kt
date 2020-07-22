@@ -10,17 +10,25 @@ import com.stegnerd.jeopardy.data.model.Question
 import com.stegnerd.jeopardy.util.NetworkHelper
 import com.stegnerd.jeopardy.util.Result
 import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 class QuestionViewModel @ViewModelInject constructor(private val repository: Repository, private val networkHelper: NetworkHelper) : ViewModel() {
 
-    val categoryId: Int = 0
+    var categoryId: Int = 0
 
     private val _question = MutableLiveData<Result<Question>>()
     val question: LiveData<Result<Question>> = _question
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
+
+    fun loadQuestion(catId:Int?){
+        if(catId != null){
+            categoryId = catId
+            getQuestionFromCategory()
+        }else {
+            getRandomQuestion()
+        }
+    }
 
     private fun getRandomQuestion() {
         viewModelScope.launch {
@@ -29,8 +37,9 @@ class QuestionViewModel @ViewModelInject constructor(private val repository: Rep
             if (networkHelper.isNetworkConnected()) {
                 repository.getRandomQuestion().let {
                     if (it.isSuccessful) {
-                        _loading.value = true
-                        _question.value = Result.success(it.body())
+                        _loading.value = false
+                        val filteredQuestion = filterQuestion(it.body()!!)
+                        _question.value = Result.success(filteredQuestion)
                     } else {
                         _loading.value = false
                         _question.value = Result.error(it.errorBody().toString(), null)

@@ -21,10 +21,19 @@
         android:id="@+id/categorySelectFragment"
         android:name="com.stegnerd.jeopardy.ui.categoryselect.CategorySelectFragment"
         android:label="category_select_list_fragment"
-        tools:layout="@layout/category_select_list_fragment" />
+        tools:layout="@layout/category_select_list_fragment" >
+        <action
+            android:id="@+id/action_categorySelectFragment_to_questionFragment"
+            app:destination="@id/questionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/questionFragment"
         android:name="com.stegnerd.jeopardy.ui.question.QuestionFragment"
         android:label="question_fragment"
-        tools:layout="@layout/question_fragment" />
+        tools:layout="@layout/question_fragment" >
+        <argument
+            android:name="categoryId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>
