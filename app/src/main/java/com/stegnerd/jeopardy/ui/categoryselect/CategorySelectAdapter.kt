@@ -2,6 +2,7 @@ package com.stegnerd.jeopardy.ui.categoryselect
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,13 @@ class CategorySelectAdapter(private val viewModel: CategorySelectViewModel) : Li
     // Called ehn binding to the ui
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
+
+        // Set up navigation for the item when it is clicked on.
+        holder.binding.CategoryName.setOnClickListener {view ->
+            val categoryId = item.id.toString()
+            val action = CategorySelectFragmentDirections.actionCategorySelectFragmentToQuestionFragment(categoryId)
+            view.findNavController().navigate(action)
+        }
 
         // attaches the data to the viewmodel and executes it.
         holder.bind(viewModel, item)
