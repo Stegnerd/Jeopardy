@@ -13,7 +13,7 @@ data class Question(
     @field:Json(name = "question") val text: String,
     @field:Json(name = "answer") val answer: String,
     @field:Json(name = "value") val pointValue: Int,
-    @field:Json(name = "category_id") val categoryId: Int
+    @field:Json(name = "category") val category: Category
 )
 
 fun Question.validate(userAnswer: String): Boolean = this.answer.toLowerCase(Locale.getDefault()) == userAnswer.toLowerCase(Locale.getDefault())

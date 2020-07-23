@@ -16,6 +16,30 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.loading ? View.GONE : View.VISIBLE}">
+
+            <TextView
+                android:id="@+id/QuestionCategoryLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Category"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/CategoryHintText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.question.data.category.title}"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/QuestionForm"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -23,13 +47,14 @@
             android:orientation="vertical"
             android:visibility="@{viewModel.loading ? View.GONE : View.VISIBLE}">
 
+
             <TextView
                 android:id="@+id/QuestionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="30sp"
                 android:text="@{viewModel.question.data.text}"
+                android:textSize="30sp"
                 tools:text="What is the name of the 25th pokemon?" />
 
             <EditText
@@ -46,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center|center_horizontal"
                 android:text="Submit" />
+
         </LinearLayout>
 
         <ProgressBar
