@@ -1,9 +1,12 @@
 package com.stegnerd.jeopardy.di
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.stegnerd.jeopardy.BuildConfig
 import com.stegnerd.jeopardy.data.api.ApiClient
 import com.stegnerd.jeopardy.data.api.ApiClientImpl
 import com.stegnerd.jeopardy.data.api.ApiService
+import com.stegnerd.jeopardy.util.NullToDefaultPointValueFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,10 +52,18 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient, BASE_API_URL: String ): Retrofit =
+    fun provideMoshi(): Moshi =
+        Moshi.Builder()
+            .add(NullToDefaultPointValueFactory)
+            .add(KotlinJsonAdapterFactory())
+            .build()
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient, BASE_API_URL: String, moshi: Moshi ): Retrofit =
         Retrofit
             .Builder()
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .baseUrl(BASE_API_URL)
             .client(okHttpClient)
             .build()
