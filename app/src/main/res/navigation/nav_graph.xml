@@ -35,5 +35,17 @@
             android:name="categoryId"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_questionFragment_to_answerFragment"
+            app:destination="@id/answerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/answerFragment"
+        android:name="com.stegnerd.jeopardy.ui.answer.AnswerFragment"
+        android:label="answer_fragment"
+        tools:layout="@layout/answer_fragment" >
+        <argument
+            android:name="correctAnswer"
+            app:argType="boolean" />
     </fragment>
 </navigation>
