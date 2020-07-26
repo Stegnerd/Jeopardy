@@ -4,4 +4,15 @@
     <string name="landing_categories_button">Categories</string>
     <string name="landing_questions_button">Questions</string>
 
+    <!-- Answer Fragment Values -->
+    <string name="right_answer">Good job! You answered correctly!</string>
+    <string name="wrong_answer">That was incorrect! The correct answer was %1$s</string>
+    <!-- End Answer Fragment Values-->
+
+
+    <!-- Accessibility -->
+    <!-- Image Src Descriptions -->
+    <string name="answer_image">Shows graphic result of answer</string>
+    <!-- End Image Descriptions-->
+    <!-- End Accessibility -->
 </resources>
