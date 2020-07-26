@@ -47,5 +47,8 @@
         <argument
             android:name="correctAnswer"
             app:argType="boolean" />
+        <argument
+            android:name="answer"
+            app:argType="string" />
     </fragment>
 </navigation>
