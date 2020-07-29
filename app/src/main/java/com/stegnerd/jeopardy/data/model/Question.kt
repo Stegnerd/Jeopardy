@@ -18,4 +18,3 @@ data class Question(
     @field:Json(name = "category") val category: Category
 )
 
-fun Question.validate(userAnswer: String): Boolean = this.answer.toLowerCase(Locale.getDefault()) == userAnswer.toLowerCase(Locale.getDefault())

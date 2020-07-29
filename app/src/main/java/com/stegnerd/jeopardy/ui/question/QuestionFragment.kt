@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.stegnerd.jeopardy.databinding.QuestionFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,9 +26,10 @@ class QuestionFragment : Fragment() {
         }
 
         binding.lifecycleOwner = viewLifecycleOwner
-
         val categoryId = getCategoryId()
         questionViewModel.loadQuestion(categoryId)
+
+        setupUi()
 
         return binding.root
     }
@@ -36,5 +38,13 @@ class QuestionFragment : Fragment() {
         return args.categoryId?.toInt()
     }
 
+    private fun setupUi(){
+        binding.QuestionSubmitButton.setOnClickListener {
+            val result = questionViewModel.validate()
+            val answer = questionViewModel.question.value?.data?.answer
+            val action = QuestionFragmentDirections.actionQuestionFragmentToAnswerFragment(result, answer!!)
+            binding.root.findNavController().navigate(action)
+        }
+    }
 
 }

@@ -63,8 +63,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:text="@{viewModel.userAnswer}"
                 android:inputType="textPersonName"
-                android:hint="Type Answer Here" />
+                android:hint="Type Answer Here"
+                android:autofillHints="answer" />
 
             <Button
                 android:id="@+id/QuestionSubmitButton"

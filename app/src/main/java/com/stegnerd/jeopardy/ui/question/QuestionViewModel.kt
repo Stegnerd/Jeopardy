@@ -11,6 +11,7 @@ import com.stegnerd.jeopardy.data.model.Question
 import com.stegnerd.jeopardy.util.NetworkHelper
 import com.stegnerd.jeopardy.util.Result
 import kotlinx.coroutines.launch
+import java.util.*
 
 class QuestionViewModel @ViewModelInject constructor(private val repository: Repository, private val networkHelper: NetworkHelper) : ViewModel() {
 
@@ -40,6 +41,16 @@ class QuestionViewModel @ViewModelInject constructor(private val repository: Rep
     val loading: LiveData<Boolean> = _loading
 
     /**
+     * User input answer for the question.
+     */
+    private var _userAnswer = MutableLiveData<String>()
+
+    /**
+     * User input answer for the question. Can be used in the ui.
+     */
+    var userAnswer: LiveData<String> = _userAnswer
+
+    /**
      * Determines if need to grab a question based on a category or not.
      * Also sets the categoryId from nav args if it is not null
      */
@@ -52,6 +63,9 @@ class QuestionViewModel @ViewModelInject constructor(private val repository: Rep
         }
     }
 
+    fun validate(): Boolean {
+        return question.value?.data?.answer?.toLowerCase(Locale.getDefault()) == userAnswer.value?.toLowerCase(Locale.getDefault())
+    }
     /**
      * Gets a random [Question] from [Repository] that is not based on a [Category].
      */
