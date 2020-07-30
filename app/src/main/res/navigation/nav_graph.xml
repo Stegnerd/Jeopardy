@@ -21,10 +21,37 @@
         android:id="@+id/categorySelectFragment"
         android:name="com.stegnerd.jeopardy.ui.categoryselect.CategorySelectFragment"
         android:label="category_select_list_fragment"
-        tools:layout="@layout/category_select_list_fragment" />
+        tools:layout="@layout/category_select_list_fragment" >
+        <action
+            android:id="@+id/action_categorySelectFragment_to_questionFragment"
+            app:destination="@id/questionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/questionFragment"
         android:name="com.stegnerd.jeopardy.ui.question.QuestionFragment"
         android:label="question_fragment"
-        tools:layout="@layout/question_fragment" />
+        tools:layout="@layout/question_fragment" >
+        <argument
+            android:name="categoryId"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_questionFragment_to_answerFragment"
+            app:destination="@id/answerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/answerFragment"
+        android:name="com.stegnerd.jeopardy.ui.answer.AnswerFragment"
+        android:label="answer_fragment"
+        tools:layout="@layout/answer_fragment" >
+        <argument
+            android:name="correctAnswer"
+            app:argType="boolean" />
+        <argument
+            android:name="answer"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_answerFragment_to_landingFragment"
+            app:destination="@id/landingFragment" />
+    </fragment>
 </navigation>
