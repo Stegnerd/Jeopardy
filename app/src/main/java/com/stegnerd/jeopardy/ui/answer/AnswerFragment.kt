@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.stegnerd.jeopardy.R
 import com.stegnerd.jeopardy.databinding.AnswerFragmentBinding
@@ -28,6 +29,7 @@ class AnswerFragment : Fragment() {
 
         getAnswerStatus()
         setupUi(answerViewModel.isCorrect)
+        setupNavigation()
 
         return binding.root
     }
@@ -44,38 +46,51 @@ class AnswerFragment : Fragment() {
      */
     private fun setupUi(isCorrect: Boolean){
 
-        var backgroundColor: Int = 0
-        var textColor: Int = 0
+        var lightColor: Int = 0
+        var darkColor: Int = 0
 
         if(isCorrect){
             // getColor was deprecated in api 23, so we need to access the color
             // depending on the version of the phone
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                backgroundColor = context?.getColor(R.color.right_light)!!
-                textColor = context?.getColor(R.color.right_dark)!!
+                lightColor = context?.getColor(R.color.right_light)!!
+                darkColor = context?.getColor(R.color.right_dark)!!
             }else{
-                backgroundColor = resources.getColor(R.color.right_light)
-                textColor = resources.getColor(R.color.right_dark)
+                lightColor = resources.getColor(R.color.right_light)
+                darkColor = resources.getColor(R.color.right_dark)
             }
 
             binding.answerResultImage.setImageResource(R.drawable.ic_check_circle_24)
             binding.answerResultText.setText(R.string.right_answer)
         }else{
              if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                 backgroundColor = context?.getColor(R.color.wrong_light)!!
-                 textColor = context?.getColor(R.color.wrong_dark)!!
+                 lightColor = context?.getColor(R.color.wrong_light)!!
+                 darkColor = context?.getColor(R.color.wrong_dark)!!
             }else{
-                 backgroundColor = resources.getColor(R.color.wrong_light)
-                 textColor = resources.getColor(R.color.wrong_dark)
+                 lightColor = resources.getColor(R.color.wrong_light)
+                 darkColor = resources.getColor(R.color.wrong_dark)
             }
 
             binding.answerResultImage.setImageResource(R.drawable.ic_cancel_circle_24)
+
+            // Update the text to use the wrong color scheme
             val text = getString(R.string.wrong_answer, answerViewModel.answer)
             binding.answerResultText.text = text
-            binding.answerResultText.setTextColor(textColor)
+            binding.answerResultText.setTextColor(darkColor)
+
+            // Update the button to use thw wrong color scheme
+            binding.playAgainButton.setTextColor(lightColor)
+            binding.playAgainButton.setBackgroundColor(darkColor)
         }
 
-        binding.root.setBackgroundColor(backgroundColor)
+        binding.root.setBackgroundColor(lightColor)
+    }
+
+    private fun setupNavigation(){
+        binding.playAgainButton.setOnClickListener {
+            val action = AnswerFragmentDirections.actionAnswerFragmentToLandingFragment()
+            findNavController().navigate(action)
+        }
     }
 
 }

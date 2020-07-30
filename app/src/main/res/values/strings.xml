@@ -7,6 +7,7 @@
     <!-- Answer Fragment Values -->
     <string name="right_answer">Good job! You answered correctly!</string>
     <string name="wrong_answer">That was incorrect! The correct answer was %1$s</string>
+    <string name="play_again_button">Play Again!</string>
     <!-- End Answer Fragment Values-->
 
 

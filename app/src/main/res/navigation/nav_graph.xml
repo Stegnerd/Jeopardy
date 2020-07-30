@@ -50,5 +50,8 @@
         <argument
             android:name="answer"
             app:argType="string" />
+        <action
+            android:id="@+id/action_answerFragment_to_landingFragment"
+            app:destination="@id/landingFragment" />
     </fragment>
 </navigation>
