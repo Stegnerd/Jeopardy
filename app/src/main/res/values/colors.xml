@@ -19,7 +19,7 @@
     <!-- end right-->
 
     <!-- wrong -->
-    <color name="wrong_dark">#f94144</color>
+    <color name="wrong_dark">#C1255A</color>
     <color name="wrong_light">#f3722c</color>
     <!-- end wrong-->
     <!-- End Answer Results-->
