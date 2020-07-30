@@ -41,14 +41,11 @@ class QuestionViewModel @ViewModelInject constructor(private val repository: Rep
     val loading: LiveData<Boolean> = _loading
 
     /**
-     * User input answer for the question.
+     * This is the value input by the user.
+     *
+     * It is no a mutable live data so that two way data binding can easily access it.
      */
-    private var _userAnswer = MutableLiveData<String>()
-
-    /**
-     * User input answer for the question. Can be used in the ui.
-     */
-    var userAnswer: LiveData<String> = _userAnswer
+    var userAnswer: String = ""
 
     /**
      * Determines if need to grab a question based on a category or not.
@@ -64,8 +61,9 @@ class QuestionViewModel @ViewModelInject constructor(private val repository: Rep
     }
 
     fun validate(): Boolean {
-        return question.value?.data?.answer?.toLowerCase(Locale.getDefault()) == userAnswer.value?.toLowerCase(Locale.getDefault())
+        return _question.value?.data?.answer?.toLowerCase(Locale.getDefault()) == userAnswer.toLowerCase(Locale.getDefault())
     }
+
     /**
      * Gets a random [Question] from [Repository] that is not based on a [Category].
      */

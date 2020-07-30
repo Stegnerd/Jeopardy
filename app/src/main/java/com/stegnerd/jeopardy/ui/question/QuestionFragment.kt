@@ -20,25 +20,24 @@ class QuestionFragment : Fragment() {
 
     private val args: QuestionFragmentArgs by navArgs()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = QuestionFragmentBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = viewLifecycleOwner
             viewModel = questionViewModel
         }
 
-        binding.lifecycleOwner = viewLifecycleOwner
+        setupUi()
         val categoryId = getCategoryId()
         questionViewModel.loadQuestion(categoryId)
-
-        setupUi()
 
         return binding.root
     }
 
-    private fun getCategoryId(): Int?{
+    private fun getCategoryId(): Int? {
         return args.categoryId?.toInt()
     }
 
-    private fun setupUi(){
+    private fun setupUi() {
         binding.QuestionSubmitButton.setOnClickListener {
             val result = questionViewModel.validate()
             val answer = questionViewModel.question.value?.data?.answer
@@ -46,5 +45,4 @@ class QuestionFragment : Fragment() {
             binding.root.findNavController().navigate(action)
         }
     }
-
 }
