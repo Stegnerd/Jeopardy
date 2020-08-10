@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.stegnerd.jeopardy.data.local.Repository
 import com.stegnerd.jeopardy.data.model.Category
+import com.stegnerd.jeopardy.util.Constants
 import com.stegnerd.jeopardy.util.NetworkHelper
 import com.stegnerd.jeopardy.util.Result
 import com.stegnerd.jeopardy.util.Status
@@ -66,7 +67,7 @@ class CategorySelectViewModel @ViewModelInject constructor(private val repositor
                 }
             }else {
                 _loading.value = false
-                _categories.value = Result.error("No internet connection", null)
+                _categories.value = Result.error(Constants.NetworkConnectionError, null)
             }
         }
     }

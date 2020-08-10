@@ -28,7 +28,7 @@ class QuestionViewModelTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    // Overrides Dispatchers.Main used in Coroutines
+    // Overrides Dispatchers.Main used in Coroutines and replaces it with a test thread.
     @get:Rule
     var coroutineRule = MainCoroutineRule()
 
@@ -94,7 +94,7 @@ class QuestionViewModelTest {
     }
 
     @Test
-    fun loadQuestion_GetsRandomQuestion_ReturnsErrorBody_WhenErrorRetrievingData_CategoryIdNotPassedIn(){
+    fun loadQuestion_GetsRandomQuestion_ReturnsError_WhenErrorRetrievingData_CategoryIdNotPassedIn(){
         // Given
         val categoryId: Int? = null
         val expectedErrorMessage: String = errorString
@@ -114,7 +114,7 @@ class QuestionViewModelTest {
     }
 
     @Test
-    fun loadQuestion_GetsRandomQuestion_ReturnsErrorBody_WhenNotConnectedToInternet_CategoryIdNotPassedIn(){
+    fun loadQuestion_GetsRandomQuestion_ReturnsError_WhenNotConnectedToInternet_CategoryIdNotPassedIn(){
         // Given
         val catgegoryId : Int? = null
         val expectedErrorMessage: String = Constants.NetworkConnectionError
@@ -153,7 +153,7 @@ class QuestionViewModelTest {
     }
 
     @Test
-    fun loadQuestion_GetsQuestionByCategory_ReturnsErrorBody_WhenErrorRetrievingData_CategoryIdPassedIn(){
+    fun loadQuestion_GetsQuestionByCategory_ReturnsError_WhenErrorRetrievingData_CategoryIdPassedIn(){
         // Given
         val categoryId: Int? = FakeData.category1.id
         val expectedErrorMessage: String = errorString
@@ -174,7 +174,7 @@ class QuestionViewModelTest {
     }
 
     @Test
-    fun loadingQuestion_GetsQuestionByCategory_ReturnsErrorBody_WhenNotConnectedToInternet_CategoryIdPassedIn(){
+    fun loadingQuestion_GetsQuestionByCategory_ReturnsError_WhenNotConnectedToInternet_CategoryIdPassedIn(){
         // Given
         val categoryId: Int? = FakeData.category1.id
         val expectedErrorMessage: String = Constants.NetworkConnectionError
