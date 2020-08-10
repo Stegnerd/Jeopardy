@@ -6,18 +6,14 @@ import com.stegnerd.jeopardy.data.local.RepositoryImpl
 import com.stegnerd.jeopardy.data.model.Question
 import com.stegnerd.jeopardy.test.util.MainCoroutineRule
 import com.stegnerd.jeopardy.test.util.fakes.FakeData
+import com.stegnerd.jeopardy.util.Constants
 import com.stegnerd.jeopardy.util.NetworkHelper
 import com.stegnerd.jeopardy.util.Result
 import com.stegnerd.jeopardy.util.Status
 import io.mockk.*
 import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.ResponseBody
-import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.*
-import retrofit2.Response
 
 
 /**
@@ -82,7 +78,7 @@ class QuestionViewModelTest {
     fun loadQuestion_GetsRandomQuestion_WhenNoCategoryIdPassedIn() {
         // Given
         val categoryId: Int? = null
-        coEvery { mockRepository.getRandomQuestion() } returns Response.success(FakeData.fakeRandomQuestionList)
+        coEvery { mockRepository.getRandomQuestion() } returns Result.success(FakeData.fakeRandomQuestion)
 
         // When
         viewModel.loadQuestion(categoryId)
@@ -97,14 +93,12 @@ class QuestionViewModelTest {
         coVerify { mockRepository.getRandomQuestion() }
     }
 
-    // TODO NEED TO FIX THIS TEST
     @Test
     fun loadQuestion_GetsRandomQuestion_ReturnsErrorBody_WhenErrorRetrievingData_CategoryIdNotPassedIn(){
         // Given
         val categoryId: Int? = null
-        val mediaType : MediaType = "application/json; charset=utf-8".toMediaType()
-        val responseBody: ResponseBody = errorString.toResponseBody(contentType = mediaType)
-        coEvery { mockRepository.getRandomQuestion() } returns Response.error(responseBody, null)
+        val expectedErrorMessage: String = errorString
+        coEvery { mockRepository.getRandomQuestion() } returns Result.error(errorString, null)
 
         // When
         viewModel.loadQuestion(categoryId)
@@ -112,21 +106,38 @@ class QuestionViewModelTest {
         // Then
         val expectedState: Status = Status.ERROR
         Assert.assertEquals(expectedState, viewModel.question.value?.status)
+        Assert.assertEquals(expectedErrorMessage, viewModel.question.value?.message)
 
         verify { loadingObserver.onChanged(true) }
         verify { loadingObserver.onChanged(false) }
         coVerify { mockRepository.getRandomQuestion() }
     }
 
+    @Test
     fun loadQuestion_GetsRandomQuestion_ReturnsErrorBody_WhenNotConnectedToInternet_CategoryIdNotPassedIn(){
+        // Given
+        val catgegoryId : Int? = null
+        val expectedErrorMessage: String = Constants.NetworkConnectionError
+        every { mockNetworkHelper.isNetworkConnected() } returns false
 
+        // When
+        viewModel.loadQuestion(catgegoryId)
+
+        // Then
+        val expectedState: Status = Status.ERROR
+        Assert.assertEquals(expectedState, viewModel.question.value?.status)
+        Assert.assertEquals(expectedErrorMessage, viewModel.question.value?.message)
+
+        verify { loadingObserver.onChanged(true) }
+        verify { loadingObserver.onChanged(false) }
+        coVerify(exactly = 0) { mockRepository.getRandomQuestion() }
     }
 
     @Test
     fun loadQuestion_GetsQuestionByCategory_WhenCategoryIdPassedIn() {
         // Given
         val categoryId: Int? = FakeData.category1.id
-        coEvery { mockRepository.getQuestionsByCategory(categoryId!!) } returns Response.success(FakeData.fakeQuestionCategoryOneList)
+        coEvery { mockRepository.getQuestionsByCategory(categoryId!!) } returns Result.success(FakeData.fakeQuestionCategoryOneList)
 
         // When
         viewModel.loadQuestion(categoryId)
@@ -141,22 +152,54 @@ class QuestionViewModelTest {
         coVerify { mockRepository.getQuestionsByCategory(categoryId!!) }
     }
 
+    @Test
     fun loadQuestion_GetsQuestionByCategory_ReturnsErrorBody_WhenErrorRetrievingData_CategoryIdPassedIn(){
         // Given
+        val categoryId: Int? = FakeData.category1.id
+        val expectedErrorMessage: String = errorString
+        coEvery { mockRepository.getQuestionsByCategory(categoryId!!) } returns Result.error(errorString, null)
 
         // When
+        viewModel.loadQuestion(categoryId)
 
         // Then
+        val expectedState: Status = Status.ERROR
+        Assert.assertEquals(expectedState, viewModel.question.value?.status)
+        Assert.assertEquals(expectedErrorMessage, viewModel.question.value?.message)
+
+        verify { loadingObserver.onChanged(true) }
+        verify { dataObserver.onChanged(viewModel.question.value) }
+        verify { loadingObserver.onChanged(false) }
+        coVerify { mockRepository.getQuestionsByCategory(categoryId!!) }
     }
 
+    @Test
     fun loadingQuestion_GetsQuestionByCategory_ReturnsErrorBody_WhenNotConnectedToInternet_CategoryIdPassedIn(){
-        
+        // Given
+        val categoryId: Int? = FakeData.category1.id
+        val expectedErrorMessage: String = Constants.NetworkConnectionError
+        every { mockNetworkHelper.isNetworkConnected() } returns false
+
+        // When
+        viewModel.loadQuestion(categoryId)
+
+        // Then
+        val expectedState: Status = Status.ERROR
+        Assert.assertEquals(expectedState, viewModel.question.value?.status)
+        Assert.assertEquals(expectedErrorMessage, viewModel.question.value?.message)
+
+        verify { loadingObserver.onChanged(true) }
+        verify { dataObserver.onChanged(viewModel.question.value) }
+        verify { loadingObserver.onChanged(false) }
+        coVerify(exactly = 0) { mockRepository.getQuestionsByCategory(categoryId!!) }
     }
 
+    @Test
     fun validate_returnsTrue_WhenAnswerCorrect() {
         // Given
         val categoryId: Int? = null
         viewModel.userAnswer = "Wrong Answer"
+        coEvery { mockRepository.getRandomQuestion() } returns Result.success(FakeData.fakeRandomQuestion)
 
         // When
         viewModel.loadQuestion(categoryId)
@@ -166,10 +209,12 @@ class QuestionViewModelTest {
         Assert.assertEquals(result, false)
     }
 
+    @Test
     fun validate_returnsFalse_WhenAnswerWrong() {
         // Given
         val categoryId: Int? = null
         viewModel.userAnswer = "Arkansas"
+        coEvery { mockRepository.getRandomQuestion() } returns Result.success(FakeData.fakeRandomQuestion)
 
         // When
         viewModel.loadQuestion(categoryId)

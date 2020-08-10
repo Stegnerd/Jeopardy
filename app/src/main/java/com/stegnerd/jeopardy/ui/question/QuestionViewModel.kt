@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.stegnerd.jeopardy.data.local.Repository
 import com.stegnerd.jeopardy.data.model.Category
 import com.stegnerd.jeopardy.data.model.Question
+import com.stegnerd.jeopardy.util.Constants
 import com.stegnerd.jeopardy.util.Extensions.filterQuestion
 import com.stegnerd.jeopardy.util.NetworkHelper
 import com.stegnerd.jeopardy.util.Result
@@ -85,7 +86,7 @@ class QuestionViewModel @ViewModelInject constructor(private val repository: Rep
                 }
             } else {
                 _loading.value = false
-                _question.value = Result.error("No internet connection", null)
+                _question.value = Result.error(Constants.NetworkConnectionError, null)
             }
         }
     }
@@ -110,7 +111,7 @@ class QuestionViewModel @ViewModelInject constructor(private val repository: Rep
                 }
             }else {
                 _loading.value = false
-                _question.value = Result.error("No internet connection", null)
+                _question.value = Result.error(Constants.NetworkConnectionError, null)
             }
         }
     }
