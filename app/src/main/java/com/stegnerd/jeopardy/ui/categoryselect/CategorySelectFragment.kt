@@ -51,6 +51,9 @@ class CategorySelectFragment : Fragment() {
         // bind the recycler view to the list adapter
         setupAdapter()
 
+        // Get the list of categories and update the view
+        categorySelectViewModel.getCategories()
+
         return binding.root
     }
 
