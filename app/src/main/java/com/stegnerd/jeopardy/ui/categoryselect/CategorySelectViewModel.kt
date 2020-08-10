@@ -4,8 +4,10 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.stegnerd.jeopardy.data.local.Repository
 import com.stegnerd.jeopardy.data.model.Category
+import com.stegnerd.jeopardy.util.Constants
 import com.stegnerd.jeopardy.util.NetworkHelper
 import com.stegnerd.jeopardy.util.Result
+import com.stegnerd.jeopardy.util.Status
 import kotlinx.coroutines.launch
 
 /**
@@ -40,32 +42,32 @@ class CategorySelectViewModel @ViewModelInject constructor(private val repositor
         it.data?.isEmpty()
     }
 
-    init {
+/*    init {
         getCategories()
-    }
+    }*/
 
     /**
      * Gets a random list of [Category] from [Repository].
      */
-    private fun getCategories() {
+    fun getCategories() {
         viewModelScope.launch {
             // Set the ui to think it is loading and not render the list
             _loading.value = true
             // If connected to the internet is some fashion try to get categories
             if(networkHelper.isNetworkConnected()){
                     repository.getRandomCategories().let {
-                    if(it.isSuccessful){
+                    if(it.status == Status.SUCCESS){
                         // stop the loading flag and return the result
                         _loading.value = false
-                        _categories.value = Result.success(it.body())
+                        _categories.value = it
                     }else {
                         _loading.value = false
-                        _categories.value = Result.error(it.errorBody().toString(), null)
+                        _categories.value = Result.error(it.message!!, null)
                     }
                 }
             }else {
                 _loading.value = false
-                _categories.value = Result.error("No internet connection", null)
+                _categories.value = Result.error(Constants.NetworkConnectionError, null)
             }
         }
     }

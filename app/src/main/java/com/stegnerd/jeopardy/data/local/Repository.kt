@@ -1,18 +1,30 @@
 package com.stegnerd.jeopardy.data.local
 
-import com.stegnerd.jeopardy.data.api.ApiClient
-import javax.inject.Inject
+import com.stegnerd.jeopardy.data.model.Category
+import com.stegnerd.jeopardy.data.model.Question
+import com.stegnerd.jeopardy.util.Result
 
 /**
- * Gets data from local and remote sources.
+ * Interface to the data layer. Gets data from local and remote sources.
  *
  * Currently there is only remote sources.
  */
-class Repository @Inject constructor(private val apiClient: ApiClient){
+interface Repository {
 
-    suspend fun getRandomCategories() = apiClient.getRandomCategories()
+    /**
+     * Gets a list of random [Category]
+     */
+    suspend fun getRandomCategories() : Result<List<Category>>
 
-    suspend fun getQuestionsByCategory(categoryId: Int) = apiClient.getQuestionsByCategory(categoryId)
+    /**
+     * Gets a list of [Question] based on a [Category]
+     */
+    suspend fun getQuestionsByCategory(categoryId: Int): Result<List<Question>>
 
-    suspend fun getRandomQuestion() = apiClient.getRandomQuestion()
+    /**
+     * Gets a random [Question] from a random [Category]
+     *
+     * This is always a list of one.
+     */
+    suspend fun getRandomQuestion(): Result<Question>
 }

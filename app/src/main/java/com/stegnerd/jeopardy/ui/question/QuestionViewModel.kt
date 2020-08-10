@@ -8,8 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.stegnerd.jeopardy.data.local.Repository
 import com.stegnerd.jeopardy.data.model.Category
 import com.stegnerd.jeopardy.data.model.Question
+import com.stegnerd.jeopardy.util.Constants
+import com.stegnerd.jeopardy.util.Extensions.filterQuestion
 import com.stegnerd.jeopardy.util.NetworkHelper
 import com.stegnerd.jeopardy.util.Result
+import com.stegnerd.jeopardy.util.Status
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -73,18 +76,17 @@ class QuestionViewModel @ViewModelInject constructor(private val repository: Rep
 
             if (networkHelper.isNetworkConnected()) {
                 repository.getRandomQuestion().let {
-                    if (it.isSuccessful) {
+                    if (it.status == Status.SUCCESS) {
                         _loading.value = false
-                        val filteredQuestion = filterQuestion(it.body()!!)
-                        _question.value = Result.success(filteredQuestion)
+                        _question.value = Result.success(it.data)
                     } else {
                         _loading.value = false
-                        _question.value = Result.error(it.errorBody().toString(), null)
+                        _question.value = it
                     }
                 }
             } else {
                 _loading.value = false
-                _question.value = Result.error("No internet connection", null)
+                _question.value = Result.error(Constants.NetworkConnectionError, null)
             }
         }
     }
@@ -98,30 +100,19 @@ class QuestionViewModel @ViewModelInject constructor(private val repository: Rep
 
             if(networkHelper.isNetworkConnected()){
                 repository.getQuestionsByCategory(categoryId).let {
-                    if(it.isSuccessful){
+                    if(it.status == Status.SUCCESS){
                         _loading.value = false
-                        val filteredQuestion = filterQuestion(it.body()!!)
+                        val filteredQuestion = filterQuestion(it.data!!)
                         _question.value = Result.success(filteredQuestion)
                     }else {
                         _loading.value = false
-                        _question.value = Result.error(it.errorBody().toString(), null)
+                        _question.value = Result.error(it.message!!, null)
                     }
                 }
             }else {
                 _loading.value = false
-                _question.value = Result.error("No internet connection", null)
+                _question.value = Result.error(Constants.NetworkConnectionError, null)
             }
         }
-    }
-
-    /**
-     * Used to grab one item from a list.
-     *
-     * Note: Abstracted now because will ube used to cross reference against if already
-     * answered before.
-     */
-    private fun filterQuestion(items: List<Question>): Question{
-        val array = items.toTypedArray()
-        return array.random()
     }
 }

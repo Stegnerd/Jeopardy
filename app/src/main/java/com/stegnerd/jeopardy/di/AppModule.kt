@@ -6,6 +6,8 @@ import com.stegnerd.jeopardy.BuildConfig
 import com.stegnerd.jeopardy.data.api.ApiClient
 import com.stegnerd.jeopardy.data.api.ApiClientImpl
 import com.stegnerd.jeopardy.data.api.ApiService
+import com.stegnerd.jeopardy.data.local.Repository
+import com.stegnerd.jeopardy.data.local.RepositoryImpl
 import com.stegnerd.jeopardy.util.NullToDefaultPointValueFactory
 import dagger.Module
 import dagger.Provides
@@ -30,7 +32,7 @@ import javax.inject.Singleton
  */
 @Module
 @InstallIn(ApplicationComponent::class)
-object NetworkModule {
+object AppModule {
 
     private const val BASE_API_URL = "http://jservice.io/api/"
 
@@ -76,4 +78,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideApiClient(apiClient: ApiClientImpl): ApiClient = apiClient
+
+    @Provides
+    @Singleton
+    fun provideRepository(repository: RepositoryImpl): Repository = repository
 }
