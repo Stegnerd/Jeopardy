@@ -82,6 +82,8 @@ jacoco {
 
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
+    // http://sangsoonam.github.io/2019/08/15/failing-unit-test-by-generatedserializationconstructoraccessor1.html
+    jacoco.excludes = ['jdk.internal.*']
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
