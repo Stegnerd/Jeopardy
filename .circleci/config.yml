@@ -16,7 +16,7 @@ jobs:
           command: chmod +x ./gradlew
       - run:
           name: Run unit test
-          command: ./gradlew testDevDebugUnitTest
+          command: ./gradlew testDebugUnitTest
       - run:
           name: Generate code coverage
           command: ./gradlew jacocoTestReport
