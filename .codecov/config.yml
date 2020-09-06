@@ -1,0 +1,44 @@
+codecov:
+  notify:
+    require_ci_to_pass: no
+
+coverage:
+  precision: 2
+  # round to the nearest decimal
+  round: nearest
+  # anything below 50 is red, 100 is solid green
+  range: 50..100
+  status:
+    # operations on the overall project
+    project:
+      default:
+        enabled: yes
+        # use coverage based on commit against parent
+        # other option is percentage covered in the commit
+        target: auto
+        # if data dropped by two percent fail the commit
+        threshold: 2
+    # operations performed on the individual commit
+    patch:
+      default:
+        enabled: yes
+        target: auto
+        threshold: 2
+    changes: no
+
+# how to parse the reports that are uploaded
+# by jacoco
+parsers:
+  gcov:
+    branch_detection:
+      conditional: yes
+      loop: yes
+      method: no
+      macro: no
+
+# configuration of the pr header text
+comment:
+  layout: "header, diff"
+  behavior: default
+  # if true: only post the comment if coverage changes
+  require_changes: false

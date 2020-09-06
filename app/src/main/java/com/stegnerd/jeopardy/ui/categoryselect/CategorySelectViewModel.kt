@@ -49,7 +49,7 @@ class CategorySelectViewModel @ViewModelInject constructor(private val repositor
     /**
      * Gets a random list of [Category] from [Repository].
      */
-    fun getCategories() {
+    fun loadCategories() {
         viewModelScope.launch {
             // Set the ui to think it is loading and not render the list
             _loading.value = true

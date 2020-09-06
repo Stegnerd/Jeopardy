@@ -80,7 +80,7 @@ class CategorySelectViewModelTest  {
         coEvery { mockRepository.getRandomCategories() } returns Result.success(FakeData.fakeCategoryList)
 
         // When
-        viewModel.getCategories()
+        viewModel.loadCategories()
 
         // Then
         Assert.assertEquals(expectedState, viewModel.categories.value?.status)
@@ -100,7 +100,7 @@ class CategorySelectViewModelTest  {
         coEvery { mockRepository.getRandomCategories() } returns Result.error(errorString, null)
 
         // When
-        viewModel.getCategories()
+        viewModel.loadCategories()
 
         // Then
         Assert.assertEquals(expectedState, viewModel.categories.value?.status)
@@ -120,7 +120,7 @@ class CategorySelectViewModelTest  {
         every { mockNetworkHelper.isNetworkConnected() } returns  false
 
         // When
-        viewModel.getCategories()
+        viewModel.loadCategories()
 
         // Then
         Assert.assertEquals(expectedState, viewModel.categories.value?.status)

@@ -1,0 +1,29 @@
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.1.1
+jobs:
+  build:
+    working_directory: ~/Jeopardy
+    docker:
+      # running an image of android 10
+      - image: circleci/android:api-30
+    steps:
+      - checkout
+      - restore_cache:
+          key: gradle-{{ checksum "build.gradle" }}
+      - run:
+          name: CHMOD permissions
+          command: chmod +x ./gradlew
+      - run:
+          name: Run unit test
+          command: ./gradlew testDevDebugUnitTest
+      - run:
+          name: Generate code coverage
+          command: ./gradlew jacocoTestReportDevDebug
+      - codecov/upload:
+          flags: unittest
+          conf: .codecov/config.yml
+      - save_cache:
+          paths:
+            - ~/.gradle
+          keys: gradle-{{ checksum "build.gradle" }}

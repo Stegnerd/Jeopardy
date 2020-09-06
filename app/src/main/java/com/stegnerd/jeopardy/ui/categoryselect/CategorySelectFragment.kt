@@ -52,7 +52,7 @@ class CategorySelectFragment : Fragment() {
         setupAdapter()
 
         // Get the list of categories and update the view
-        categorySelectViewModel.getCategories()
+        categorySelectViewModel.loadCategories()
 
         return binding.root
     }
