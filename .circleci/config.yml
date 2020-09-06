@@ -19,10 +19,11 @@ jobs:
           command: ./gradlew testDevDebugUnitTest
       - run:
           name: Generate code coverage
-          command: ./gradlew jacocoTestReportDevDebug
-      - codecov/upload:
-          flags: unittest
-          conf: .codecov/config.yml
+          command: ./gradlew jacocoTestReport
+      #- codecov/upload:
+          # Upload coverage to codecov
+          #flags: unittest
+          #conf: .codecov/config.yml
       - save_cache:
           paths:
             - ~/.gradle
