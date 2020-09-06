@@ -71,5 +71,4 @@ class CategorySelectViewModel @ViewModelInject constructor(private val repositor
             }
         }
     }
-
 }
