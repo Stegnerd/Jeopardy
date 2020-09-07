@@ -14,31 +14,16 @@ jobs:
       - run:
           name: CHMOD permissions
           command: chmod +x ./gradlew
-#      - run:
-#          name: Setup emulator
-#          command: sdkmanager "system-images;android-25;google_apis;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-25;google_apis;armeabi-v7a"
-#      - run:
-#          name: Launch emulator
-#          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
-#          background: true
-#      - run:
-#          name: Wait emulator
-#          command: |
-#            # wait for it to have booted
-#            circle-android wait-for-boot
-#            # unlock the emulator screen
-#            sleep 30
-#            adb shell input keyevent 82
       - run:
           name: Run unit test
           command: ./gradlew testDebugUnitTest
       - run:
           name: Generate code coverage
           command: ./gradlew jacocoTestReportdebug
-      #- codecov/upload:
+      - codecov/upload:
           # Upload coverage to codecov
-          #flags: unittest
-          #conf: .codecov/config.yml
+          flags: unittest
+          conf: .codecov/config.yml
       - save_cache:
           paths:
             - ~/.gradle
