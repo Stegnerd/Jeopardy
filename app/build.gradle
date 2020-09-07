@@ -84,14 +84,17 @@ tasks.withType(Test) {
     }
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+junitJacoco {
+    excludes = ['jdk.internal.*']
+    includeNoLocationClasses = true
 
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
     reports {
         xml.enabled = true
         html.enabled = true
     }
-
-
 }
 
 dependencies {
