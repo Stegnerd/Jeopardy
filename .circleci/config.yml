@@ -34,7 +34,7 @@ jobs:
           command: ./gradlew testDebugUnitTest
       - run:
           name: Generate code coverage
-          command: ./gradlew jacocoTestReport
+          command: ./gradlew jacocoTestReportdebug
       #- codecov/upload:
           # Upload coverage to codecov
           #flags: unittest

@@ -5,7 +5,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
-    id 'jacoco'
+    id 'com.vanniktech.android.junit.jacoco'
 }
 
 android {
@@ -76,14 +76,10 @@ android {
     }
 }
 
-jacoco {
-    toolVersion = "0.8.4"
-}
 
-tasks.withType(Test) {
-    jacoco.includeNoLocationClasses = true
-    // http://sangsoonam.github.io/2019/08/15/failing-unit-test-by-generatedserializationconstructoraccessor1.html
-    jacoco.excludes = ['jdk.internal.*']
+
+junitJacoco {
+    includeNoLocationClasses = true
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
