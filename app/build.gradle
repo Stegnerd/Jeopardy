@@ -76,10 +76,12 @@ android {
     }
 }
 
-
-
-junitJacoco {
-    includeNoLocationClasses = true
+tasks.withType(Test) {
+    junitJacoco {
+        // http://sangsoonam.github.io/2019/08/15/failing-unit-test-by-generatedserializationconstructoraccessor1.html
+        includeNoLocationClasses = true
+        excludes = ['jdk.internal.*']
+    }
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
