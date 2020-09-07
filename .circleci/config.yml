@@ -22,8 +22,9 @@ jobs:
           command: ./gradlew jacocoTestReportdebug
       - codecov/upload:
           # Upload coverage to codecov
+          # file:
           flags: unittest
-          conf: .codecov/config.yml
+          # conf: .codecov/config.yml
       - save_cache:
           paths:
             - ~/.gradle
