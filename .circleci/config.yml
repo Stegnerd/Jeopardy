@@ -37,4 +37,4 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - master # filters to only work on main
