@@ -77,6 +77,12 @@ android {
     }
 }
 
+junitJacoco {
+ excludes = [
+         '**/*databinding/**/*.*' // Removes com.stegnerd.jeopardy.databinding
+ ]
+}
+
 // This is included because this version of jacoc uses Java 9
 // but we are using Java 8
 // GeneratedSerializationConstructorAccessor1
