@@ -21,7 +21,8 @@ This is a project to learn several things of android development. It uses Kotlin
 These are goals for this project:
 
 - [x] Consume remote datasource (external api) with Retrofit
-- [ ] Set up Circle CI build with Code Cov (current)
+- [x] Set up Circle CI build with Code Cov (current)
+- [ ] Setup Firebase crasylytics and Test Lab
 - [ ] Unit testing with Mockk and InstrumentedTesting with Robolectric (current)
 - [ ] Material Design principles/ A11y
 
