@@ -43,7 +43,7 @@ These are goals for this project:
 There is nothing special to this build at the moment.
 
 - Gradle -> 6.1.1 which is latest at this moment.
-- Kotlin -> 1.3.72
+- Kotlin -> 1.4.10
 - Android -> target SDK 30 (Android 10)
 
 to build just clone and click build or from cli: .\gradlew build in root directory of project
