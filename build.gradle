@@ -19,6 +19,9 @@ buildscript {
 
         // Jacoco Test Coverage
         classpath "com.vanniktech:gradle-android-junit-jacoco-plugin:0.16.0"
+
+        // Google play services:
+        classpath 'com.google.gms:google-services:4.3.3'
     }
 }
 
