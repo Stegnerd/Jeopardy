@@ -16,14 +16,11 @@ coverage:
         # use coverage based on commit against parent
         # other option is percentage covered in the commit
         target: auto
-        # if data dropped by two percent fail the commit
-        threshold: 2
     # operations performed on the individual commit
     patch:
       default:
         enabled: yes
         target: auto
-        threshold: 2
     changes: no
 
 # how to parse the reports that are uploaded
