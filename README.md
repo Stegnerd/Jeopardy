@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/Stegnerd/Jeopardy/tree/master.svg?style=shield)](https://circleci.com/gh/Stegnerd/Jeopardy/tree/master)
 [![Codecov](https://codecov.io/gh/Stegnerd/Jeopardy/branch/master/graphs/badge.svg)](https://codecov.io/gh/Stegnerd/Jeopardy)
-[![Kotlin Version](https://img.shields.io/badge/kotlin-1.3.71-blue.svg)](http://kotlinlang.org/)
+[![Kotlin Version](https://img.shields.io/badge/kotlin-1.4.10-blue.svg)](http://kotlinlang.org/)
 [![Gradle](https://lv.binarybabel.org/catalog-api/gradle/latest.svg?v=6.1.1)](https://lv.binarybabel.org/catalog/gradle/latest)
 [![API](https://img.shields.io/badge/API-30%2B-orange.svg?style=flat)](https://android-arsenal.com/api?level=30)
 
@@ -43,7 +43,7 @@ These are goals for this project:
 There is nothing special to this build at the moment.
 
 - Gradle -> 6.1.1 which is latest at this moment.
-- Kotlin -> 1.3.72
+- Kotlin -> 1.4.10
 - Android -> target SDK 30 (Android 10)
 
 to build just clone and click build or from cli: .\gradlew build in root directory of project
