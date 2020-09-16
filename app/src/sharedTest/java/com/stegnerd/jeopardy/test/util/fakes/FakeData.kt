@@ -16,6 +16,7 @@ object FakeData {
     val category5 = Category(11498, "world city walk", 5)
 
     val fakeCategoryList: List<Category> = listOf(category1, category2, category3, category4, category5)
+    // TODO UUSE THIS https://github.com/square/okhttp/tree/master/mockwebserver
 
     // List for question by category
     val fakeQuestionCategoryOne = Question(87824,
