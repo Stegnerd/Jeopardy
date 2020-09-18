@@ -16,6 +16,7 @@ object FakeData {
     val category5 = Category(11498, "world city walk", 5)
 
     val fakeCategoryList: List<Category> = listOf(category1, category2, category3, category4, category5)
+    val emptyFakeCategoryList: List<Category> = emptyList()
 
     // List for question by category
     val fakeQuestionCategoryOne = Question(87824,
@@ -24,6 +25,7 @@ object FakeData {
         400,
         category1)
     val fakeQuestionCategoryOneList: List<Question> = listOf(fakeQuestionCategoryOne)
+    val emptyFakeQuestionCategoryList: List<Question> = emptyList()
 
     // List for random question
     val fakeRandomCategory = Category(2967, "just us chickens", 5)
@@ -34,4 +36,5 @@ object FakeData {
         fakeRandomCategory
     )
     val fakeRandomQuestionList: List<Question> = listOf(fakeRandomQuestion)
+    val emptyFakeRandomQuestionList: List<Question> = emptyList()
 }

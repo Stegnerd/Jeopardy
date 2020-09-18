@@ -3,6 +3,7 @@ package com.stegnerd.jeopardy.data.local
 import com.stegnerd.jeopardy.data.api.ApiClient
 import com.stegnerd.jeopardy.data.model.Category
 import com.stegnerd.jeopardy.data.model.Question
+import com.stegnerd.jeopardy.util.Constants
 import com.stegnerd.jeopardy.util.Extensions.filterQuestion
 import com.stegnerd.jeopardy.util.Result
 import javax.inject.Inject
@@ -22,7 +23,7 @@ class RepositoryImpl @Inject constructor(private val apiClient: ApiClient): Repo
                 }
             }
         }catch (exception: Exception){
-            return Result.error("No internet connection", null)
+            return Result.error(Constants.NetworkConnectionError, null)
         }
     }
 
@@ -36,7 +37,7 @@ class RepositoryImpl @Inject constructor(private val apiClient: ApiClient): Repo
                 }
             }
         }  catch (exception: Exception){
-            return Result.error("No internet connection", null)
+            return Result.error(Constants.NetworkConnectionError, null)
         }
     }
 
@@ -51,7 +52,7 @@ class RepositoryImpl @Inject constructor(private val apiClient: ApiClient): Repo
               }
           }
       }  catch (exception: Exception){
-          return Result.error("No internet connection", null)
+          return Result.error(Constants.NetworkConnectionError, null)
       }
     }
 

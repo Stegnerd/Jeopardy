@@ -3,11 +3,13 @@ package com.stegnerd.jeopardy.data.model
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import com.stegnerd.jeopardy.util.NullToDefaultPointValue
+import kotlinx.serialization.Serializable
 import java.util.*
 
 /**
  * Question to be asked to the user based on a category and value.
  */
+@Serializable
 @JsonClass(generateAdapter = true)
 data class Question(
     @field:Json(name = "id") val id: Int,
